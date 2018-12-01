@@ -1,0 +1,71 @@
+objset:
+    - [0x00, 0x00, 0x00, 0x00]  # 0 None
+    - [0x80, 0x80, 0x80, 0x80]  # 1 Cave
+    - [0x81, 0x81, 0x81, 0x81]  # 2 Ground
+    - [0x90, 0x91, 0x92, 0x93]  # 3 Tree
+    - [0x94, 0x95, 0x96, 0x97]  # 4 Mountain
+mapping:
+    "o": 0x01  # Cave
+    " ": 0x42  # Ground
+    "t": 0x43  # Green tree
+    "T": 0x83  # Brown tree
+    "m": 0x44  # Green mountain
+    "M": 0x84  # Brown mountain
+
+maps:
+    - bank: 0
+      id: 0
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      data:
+        - "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+        - "M               TT             M"
+        - "M               TT             M"
+        - "M                              M"
+        - "M                              M"
+        - "M               TT             M"
+        - "M               TT             M"
+        - "M                              M"
+        - "M               MM             M"
+        - "M             MMMMMM           M"
+        - "M           MMMMMMMMMM         M"
+        - "M         MMMMMMMMMMMMMM      MM"
+        - "MMMMM   MMMMMMMMMMMMMMMMMM   MMM"
+        - "mmmmm   mmmmmmmmmmmmmmmmmm   mmm"
+        - "mmmmm   mmmmmmmmmmmmmmm        m"
+        - "mmmmm   mmmmmmmmmmmmmm         m"
+        - "mmmmm   mmmmmmmmmm mm        t m"
+        - "mmom    mmmmmmmmmmmm     T   t m"
+        - "m       mmmmmmmmmmm          t m"
+        - "m       mmmmmmmmmm             m"
+        - "m       mmmmmmmmm    t   tt    m"
+        - "m                              m"
+        - "m                    t   tt  t m"
+        - "mm                             m"
+        - "mmmmmmmmmmmmmmmm     t   tt  t m"
+        - "mmmmmmmmmmmmmmmmmmmm           m"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+      exits:
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+
