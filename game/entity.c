@@ -214,16 +214,16 @@ void player_input(void) {
         sword_timer = sizeof(sword_frames) - 1;
     } else if (player_pad & PAD_LEFT) {
         entity_facing[0] = 0;
-        entity_vx[0] = -0x100;
+        entity_vx[0] = -0x200;
     } else if (player_pad & PAD_RIGHT) { 
         entity_facing[0] = 1;
-        entity_vx[0] = 0x100;
+        entity_vx[0] = 0x200;
     } else if (player_pad & PAD_UP) {
         entity_facing[0] = 2;
-        entity_vy[0] = -0x100;
+        entity_vy[0] = -0x200;
     } else if (player_pad & PAD_DOWN) { 
         entity_facing[0] = 3;
-        entity_vy[0] = 0x100;
+        entity_vy[0] = 0x200;
     }
 }    
 
@@ -317,6 +317,7 @@ void entity_spawn(uint8_t *spawns) {
 void entity_load_screen(uint8_t dmap) {
     screen_load(dmap);
     entity_spawn(screen_get_spawns(dmap));
+    player_display();
 }
 
 uint8_t player_check_exit(void) {
@@ -332,6 +333,8 @@ uint8_t player_check_exit(void) {
             y < screen_exit_y1[i]) {
             entity_posx[0] = screen_exit_dx[i]*16;
             entity_posy[0] = screen_exit_dy[i]*16;
+            if (entity_posx[0] == 0) entity_posx[0] = 9;
+            if (entity_posy[0] == 0) entity_posy[0] = 9;
             ppu_off();
             entity_load_screen(screen_exit_dmap[i]);
 

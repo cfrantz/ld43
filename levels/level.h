@@ -13,7 +13,7 @@ struct LevelData {
     // size = 1024
 };
 
-extern const uint8_t objset[256];
-extern const struct LevelData levels[7];
+extern const uint8_t objset0[256];
+extern const struct LevelData levels0[7];
 
 #endif // LD43_LEVELS_LEVEL_H

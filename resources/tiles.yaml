@@ -139,6 +139,37 @@ tiles:
           - "30    30        "
           - "30    30        "
 
+    - offset: 0x98
+      origin: [0, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff1412a7, 0xffff0000, 0xffffffff]
+      filename: 'gfx/water.png'
+
+    - offset: 0xa0
+      origin: [0, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff666666, 0xffadadad, 0xffffffff]
+      filename: 'gfx/gray.png'
+    - offset: 0xa4
+      origin: [16, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff666666, 0xffadadad, 0xffffffff]
+      filename: 'gfx/gray.png'
+    - offset: 0xa8
+      origin: [32, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff666666, 0xffadadad, 0xffffffff]
+      filename: 'gfx/gray.png'
+    - offset: 0xac
+      origin: [48, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff666666, 0xffadadad, 0xffffffff]
+      filename: 'gfx/gray.png'
 
 
 

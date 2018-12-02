@@ -18,6 +18,7 @@ $(SUBDIRS):
 
 ld43.nes: $(OBJS) $(LIBS)
 	ld65 -C $(MAPPER)/nes.cfg -vm --mapfile ld43.map -o $@ \
+		levels/level1.o \
 		$(OBJS) \
 		$(LIBS) \
 		$(NESLIB)

@@ -42,10 +42,15 @@ class LevelBuilder(object):
             m['sprpal'][i] = int(val)
 
         for i, val in enumerate(data.get('exits', [])):
-            m['exits'][i*4+0] = int(val['x'])
-            m['exits'][i*4+1] = int(val['y'])
+            w = int(val.get('w', 1)) - 1
+            h = int(val.get('h', 1)) - 1
+            m['exits'][i*4+0] = int(val['x']) | (w<<5)
+            m['exits'][i*4+1] = int(val['y']) | (h<<5)
             m['exits'][i*4+2] = int(val['dmap'])
-            m['exits'][i*4+3] = int(val['dpos'])
+            m['exits'][i*4+3] = int(val.get('dpos', 0))
+            dx = int(val.get('dx', 0)) // 2
+            dy = int(val.get('dy', 0)) // 2
+            m['exits'][i*4+3] |= (dy<<4) | dx
 
         for i, val in enumerate(data.get('spawns', [])):
             m['spawns'][i*3+0] = int(val['x'])
@@ -114,12 +119,12 @@ class LevelBuilder(object):
     def PrintMaps(self, bank):
         print('#include "level.h"')
         print('#pragma rodata-name(push, "LVLDAT%d")' % bank)
-        print('const uint8_t objset[256] = {')
+        print('const uint8_t objset%d[256] = {' % bank)
         for obj in self.objset:
             print(','.join(('0x%02x' % int(x) for x in obj)) + ',')
         print('};')
 
-        print('const struct LevelData levels[7] = {')
+        print('const struct LevelData levels%d[7] = {' % bank)
         for i in range(7):
             self.PrintMap(bank<<3 | i)
         print('};')

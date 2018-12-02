@@ -3,12 +3,16 @@ include ../toolchain.mk
 .PHONY: clean 
 .PRECIOUS: *.o
 
-OUTS=level0.c bgtiles.h sprites.h
+OUTS=level0.c level1.c bgtiles.h sprites.h
 
 all: $(OUTS)
 
 level0.c: maps.yaml
-	python3 mklevels.py $< >$@
+	python3 mklevels.py --bank 0 $< >$@
+	cp $@ ../levels
+
+level1.c: maps.yaml
+	python3 mklevels.py --bank 1 $< >$@
 	cp $@ ../levels
 
 bgtiles.h: tiles.yaml

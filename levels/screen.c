@@ -23,7 +23,7 @@ void screen_copy_to_ram(uint8_t n) {
     static uint8_t *dst;
     static const uint8_t *src;
 
-    src = levels[n].data;
+    src = levels0[n].data;
     for(y=0; y<(15+15+12+12); ++y) {
         switch(y) {
             case 0:  dst = screens[0]; break;
@@ -37,15 +37,15 @@ void screen_copy_to_ram(uint8_t n) {
         }
     }
     for(i=0; i<8; i++) {
-        x = levels[n].exits[i*4+0];
-        y = levels[n].exits[i*4+1];
+        x = levels0[n].exits[i*4+0];
+        y = levels0[n].exits[i*4+1];
         screen_exit_x0[i] = x & 0x1f;
         screen_exit_y0[i] = y & 0x1f;
         screen_exit_x1[i] = (x & 0x1f) + (x >> 5) + 1;
         screen_exit_y1[i] = (y & 0x1f) + (y >> 5) + 1;
-        screen_exit_dmap[i] = levels[n].exits[i*4+2];
-        screen_exit_dx[i] = (levels[n].exits[i*4+3] & 0xf) << 1;
-        screen_exit_dy[i] = (levels[n].exits[i*4+3] & 0xf0) >> 3;
+        screen_exit_dmap[i] = levels0[n].exits[i*4+2];
+        screen_exit_dx[i] = (levels0[n].exits[i*4+3] & 0xf) << 1;
+        screen_exit_dy[i] = (levels0[n].exits[i*4+3] & 0xf0) >> 3;
     }
 }
 
@@ -61,8 +61,8 @@ void screen_load_one(uint8_t scrn) {
             for(x=0; x<16; ++x) {
                 t = y*16+x;
                 a = p[t] * 4;
-                vram_put_data(objset[a + i + 0]);
-                vram_put_data(objset[a + i + 2]);
+                vram_put_data(objset0[a + i + 0]);
+                vram_put_data(objset0[a + i + 2]);
             }
         }
     }
@@ -83,18 +83,18 @@ void screen_load_one(uint8_t scrn) {
 void screen_load(uint8_t id) {
     static uint8_t n, i;
     set_mmc3_low_bank(id >> 3);
-    pal_all(levels[id].palette);
     n = id & 7;
+    pal_all(levels0[n].palette);
     screen_copy_to_ram(n);
     for(i=0; i<4; i++) {
         screen_load_one(i);
     }
     for(i=0; i<6; i++) {
-        mmc3_reg(i, levels[id].chrbanks[i]);
+        mmc3_reg(i, levels0[n].chrbanks[i]);
     }
 }
 
 uint8_t* screen_get_spawns(uint8_t id) {
     id &= 7;
-    return levels[id].spawn;
+    return levels0[id].spawn;
 }

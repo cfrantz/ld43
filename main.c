@@ -37,7 +37,6 @@ void main(void)
     vram_puts(0, 32*2+29, kHud0);
     vram_puts(5, 32*2+27, "Health & Stuff");
 
-    set_mmc3_low_bank(0);
     entity_load_screen(0);
 
     ppu_on_all();

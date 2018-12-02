@@ -2,7 +2,7 @@ objset:
     - [0x00, 0x00, 0x00, 0x00]  # 0 None
     - [0x80, 0x80, 0x80, 0x80]  # 1 Cave
     - [0x81, 0x81, 0x81, 0x81]  # 2 Ground
-    - [0x00, 0x00, 0x00, 0x00]  # 3
+    - [0x98, 0x99, 0x9a, 0x9b]  # 3 Sand
     - [0x00, 0x00, 0x00, 0x00]  # 4
     - [0x00, 0x00, 0x00, 0x00]  # 5
     - [0x00, 0x00, 0x00, 0x00]  # 6
@@ -18,6 +18,13 @@ objset:
 
     - [0x90, 0x91, 0x92, 0x93]  # 0x10 Tree
     - [0x94, 0x95, 0x96, 0x97]  # 0x11 Mountain
+    - [0x98, 0x99, 0x9a, 0x9b]  # 0x12 Water
+    - [0x00, 0x00, 0x00, 0x00]  # 0x13 Nothing
+    - [0xa0, 0xa1, 0xa2, 0xa3]  # 0x14 Pillar 1
+    - [0xa4, 0xa5, 0xa6, 0xa7]  # 0x15 Pillar 2
+    - [0xa8, 0xa9, 0xaa, 0xab]  # 0x16 Block
+    - [0xac, 0xad, 0xae, 0xaf]  # 0x17 Grave
+
 
 maps:
     - bank: 0
@@ -42,8 +49,13 @@ maps:
           "T": 0x90  # Brown tree
           "m": 0x51  # Green mountain
           "M": 0x91  # Brown mountain
+          "W": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
       data:
-        - "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+        - "MM        MMMMMMMMMMMM        MM"
         - "M               TT             M"
         - "M               TT             M"
         - "M                              M"
@@ -63,22 +75,20 @@ maps:
         - "mmom    mmmmmmmmmmmm     T   t m"
         - "m       mmmmmmmmmmm          t m"
         - "m       mmmmmmmmmm             m"
-        - "m       mmmmmmmmm    t   tt    m"
-        - "m                              m"
-        - "m                    t   tt  t m"
+        - "        mmmmmmmmm    t   tt     "
+        - "                                "
+        - "                     t   tt  t  "
         - "mm                             m"
         - "mmmmmmmmmmmmmmmm     t   tt  t m"
         - "mmmmmmmmmmmmmmmmmmmm           m"
         - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
       exits:
           - {'x':0xFF, 'y':0xFF, 'dmap': 0, 'dpos': 0xa3}
-          - {'x':2, 'y':17, 'dmap': 1, 'dpos': 0x68}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':2,  'y':17,     'dmap': 6, 'dpos': 0x68}
+          - {'x':0,  'y':0x74,   'dmap': 1, 'dpos': 0xaf}
+          - {'x':31, 'y':0x74,   'dmap': 2, 'dpos': 0xa0}
+          - {'x':2, 'w':8, 'y':0,'dmap':4, 'dx':4, 'dy':25} #up1
+          - {'x':23, 'w':8,'y':0,'dmap':4, 'dx':26, 'dy':25} #up
       spawns:
           - {'x':3, 'y':19, 'id': 1}
           - {'x':6, 'y':19, 'id': 1}
@@ -103,43 +113,47 @@ maps:
         0x0f, 0x00, 0x10, 0x30,
       ]
       mapping:
-          " ": 0x01  # Ground
+          "o": 0x01  # Cave
+          " ": 0x42  # Ground
           "t": 0x50  # Green tree
           "T": 0x90  # Brown tree
           "m": 0x51  # Green mountain
           "M": 0x91  # Brown mountain
+          "W": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
       data:
-        - "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMM               MMMMMMMM"
-        - "MMMMMMMMMMMMMMMM  MMMMMMMMMMMMMM"
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
-        - "                                "
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mmmm           mmmmmm      mmmmm"
+        - "mm                          mmmm"
+        - "m                            mmm"
+        - "m                             mm"
+        - "m              mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "mttt   tt   tttmmmmmm         mm"
+        - "mttt   tt   tttmmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m    t    t    mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m    t    t    mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m    t    t    mmmmmm         mm"
+        - "m              mmmmmm         mm"
+        - "m              mmmmmm           "
+        - "m              mmmmmm           "
+        - "m     BBBB     mmmmmm           "
+        - "m  p  poop  p  mmmmmmmmmmmmmmmmm"
+        - "m  P  PooP  P  mmmmmmmmmmmmmmmmm"
+        - "m              mmmmmmmmmmmmmmmmm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
       exits:
-          - {'x':0x30, 'y':14, 'dmap': 0, 'dpos': 0xa3}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':31, 'y':0x74, 'dmap': 0, 'dpos': 0xa0}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
@@ -147,5 +161,509 @@ maps:
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
       spawns:
           - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 0
+      id: 2
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x42  # Ground
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "MM        MMMMMMMMMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M          MMMMMMMMMMMM      www"
+        - "M          MMMMMMMMMMMM      www"
+        - "M          MMMMMMMMMMMM      www"
+        - "M          MMMMMMMMMMMM      www"
+        - "M          MMMMMMMMMMMM      www"
+        - "M          MMMMMMMMMMMM      www"
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+        - "MMMMMMMMMMMMMMMMMMMMMMMM     www"
+        - "MMMMMMMMMMMMMMMMMMMMMMMMM    www"
+        - "MMMMMMMMMMMMMMMMMMMMMMMMM    www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "MMM                          www"
+        - "MMMwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        - "MMMwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        - "MMMwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+      exits:
+          - {'x':0, 'y':20, 'h':3, 'dmap': 0, 'dpos': 0xaf}     #left
+          - {'x':2, 'w':8,  'y':0, 'dmap': 3, 'dx':4, 'dy':25}  #up1
+          - {'x':23,'w':5,  'y':0, 'dmap': 3, 'dx':24, 'dy':25} #up2
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 0
+      id: 3
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x42  # Ground
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "M                MMMMMM      www"
+        - "MM        MMMMMMMMMMMMM      www"
+        - "MM        MMMMMMMMMMMMM      www"
+        - "MM        MMMMMMMMMMMMM      www"
+        - "MM        MMMMMMMMMMMMM      www"
+        - "MM        MMMMMMMMMMMMM      www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "MM        MMMMMMMMMMMMM      www"
+        - "MM        MMMMMMMMMMMMM      www"
+      exits:
+          - {'x':0, 'y':17, 'h':8, 'dmap':4, 'dx':30, 'dy':20} #left
+          - {'x':2, 'w':8,  'y':26,'dmap':2, 'dx':4, 'dy':0}   #down1
+          - {'x':23,'w':5,  'y':26,'dmap':2, 'dx':24, 'dy':0}  #down2
+          - {'x':23,'w':5,  'y':0, 'dmap':6, 'dx':24, 'dy':25}   #up
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 0
+      id: 4
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x42  # Ground
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "MM        MMMMMMMMMMMMMMMMMMMMMM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM         tt  tt  tt   ttt   MM"
+        - "MM                       tt   MM"
+        - "MM         tt  tt      t  t   MM"
+        - "MM         tt      tt         MM"
+        - "MM                            MM"
+        - "MM         tt  t     t t  t   MM"
+        - "MM                t       t   MM"
+        - "MM         tt  t     t t      MM"
+        - "MM             t  t           MM"
+        - "MM         tt  t  t  t t  t   MM"
+        - "MM                        t   MM"
+        - "MM                            MM"
+        - "MM         tt  ttt   ttt      MM"
+        - "MM                            MM"
+        - "MM                              "
+        - "MM                              "
+        - "MM                              "
+        - "MM                              "
+        - "MM                              "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "MM        MMMMMMMMMMMMM       MM"
+        - "MM        MMMMMMMMMMMMM       MM"
+      exits:
+          - {'x':2, 'w':8, 'y':0, 'dmap':9, 'dx':4, 'dy':25}   #up
+          - {'x':0, 'y':22,'h':3, 'dmap':5, 'dx':30, 'dy':24} #left
+          - {'x':31, 'y':17, 'h':8, 'dmap':3, 'dx':0, 'dy':20} #right
+          - {'x':2, 'w':8, 'y':27,'dmap':0, 'dx':4, 'dy':1}   #down1
+          - {'x':23, 'w':8,'y':27,'dmap':0, 'dx':26, 'dy':1}  #down2
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 0
+      id: 5
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x42  # Ground
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "MM        MMMMMMMMMMMMM       MM"
+        - "MM        MMMMMMMMMMMMM       MM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM           T   T   T        MM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM     wwwwwwwwwwwwwwwwww     MM"
+        - "MM     wwwwwwwwwwwwwwwwww     MM"
+        - "MM     wwwwwwwwwwwwwwwwww     MM"
+        - "mm     wwwwwwwwwwwwwwwwww     mm"
+        - "mm     wwwwwwwwwwwwwwwwww     mm"
+        - "mm     wwwwwwwwwwwwwwwwww     mm"
+        - "mm     wwwwwwwwwwwwwwwwww     mm"
+        - "mm     wwwwwwwwwwwwwwwwww     mm"
+        - "mm     wwwwwwwwwwwwwwwwww     mm"
+        - "mm     wwwwwwwwwwww           mm"
+        - "mm     wwwwwwwwwwww           mm"
+        - "mm     wwwwwwwwww      tt     mm"
+        - "mm     wwwwwwww       ttt     mm"
+        - "mm     wwww         ttttt     mm"
+        - "mm     wwww       ttttttt     mm"
+        - "mm                              "
+        - "mm                              "
+        - "mm                              "
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+      exits:
+          - {'x':31,'y':22,'h':3, 'dmap':4, 'dx':0, 'dy':24} #right
+          - {'x':2, 'w':8, 'y':0, 'dmap':10, 'dx':4, 'dy':25}   #up1
+          - {'x':23, 'w':8, 'y':0, 'dmap':10, 'dx':24, 'dy':25}   #up2
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 0
+      id: 6
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x83  # Sand
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        - "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        - "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        - "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "MM                           www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "                             www"
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+        - "MMMMMMMMMMMMMMMMMMMMMMM      www"
+      exits:
+          - {'x':23,'w':5,  'y':26,'dmap':3, 'dx':24, 'dy':0}  #down1
+          - {'x':0,'y':21,'h':5,   'dmap':9, 'dx':30, 'dy':24} #left
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 1
+      id: 1
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x83  # Sand
+          "_": 0xc2  # grey ground
+          "m": 0xd1  # grey mountain
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mm____________________________mm"
+        - "mm____________________________mm"
+        - "______________________________mm"
+        - "______________________________mm"
+        - "______________________________mm"
+        - "______________________________mm"
+        - "______________________________mm"
+        - "______________________________mm"
+        - "______________________________mm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "MM                            MM"
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "MM        MMMMMMMMMMMMMMMMMMMMMM"
+        - "MM        MMMMMMMMMMMMMMMMMMMMMM"
+      exits:
+          - {'x':0, 'y':4,'h':7, 'dmap':10, 'dx':30, 'dy':6}   #left1
+          - {'x':0, 'y':20,'h':5, 'dmap':10, 'dx':30, 'dy':22} #left2
+          - {'x':31,'y':21,'h':5, 'dmap':6, 'dx':0, 'dy':24}   #right
+          - {'x':2, 'w':5,  'y':26,'dmap':4, 'dx':4, 'dy':0}  #down1
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+    - bank: 1
+      id: 2
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0xc2  # grey ground
+          "m": 0xd1  # grey mountain
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "M": 0x91  # Brown mountain
+          "w": 0x12  # Water
+          "p": 0xd4  # Pillar 1
+          "P": 0xd5  # Pillar 2
+          "B": 0xd6  # Block
+          "G": 0xd7  # Grave
+      data:
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        - "mm                            mm"
+        - "mm   G  G  G  BBBBB  G  G  G  mm"
+        - "mm            p   p             "
+        - "mm   G  G  G  P   P  G  G  G    "
+        - "mm                              "
+        - "mm   G  G  G  BBBBB  G  G  G    "
+        - "mm            p   p             "
+        - "mm   G  G  G  P   P  G  G  G    "
+        - "mm                              "
+        - "mm         B   mmmmmmmmmmmmmmmmm"
+        - "mm            mmmmmmmmmmmmmmmmmm"
+        - "mm           mmmmmmmmmmmmmmmmmmm"
+        - "mm           mmmmmmmmmmmmmmmmmmm"
+        - "mm           mmmmmmmmmmmmmmmmmmm"
+        - "mm           mmmmmmmmmmmmmmmmmmm"
+        - "mm    B     mmmmmmmmmmmmmmmmmmmm"
+        - "mm         mmmmmmmmmmmmmmmmmmmmm"
+        - "mm         mmmmmmmmmmmmmmmmmmmmm"
+        - "mm        mmmmmmmmmmmmm         "
+        - "mm        mmmmmmmmmmmmm         "
+        - "mm        mmmmmmmmmmmmm         "
+        - "mm        mmmmmmmmmmmmm         "
+        - "mm        mmmmmmmmmmmmm         "
+        - "mm        mmmmmmmmmmmmm       mm"
+        - "mm        mmmmmmmmmmmmm       mm"
+      exits:
+          - {'x':2, 'w':8, 'y':26, 'dmap':5, 'dx':4, 'dy':0}   #down1
+          - {'x':23,'w':8, 'y':26, 'dmap':5, 'dx':24,'dy':0}   #down1
+          - {'x':31,'y':4, 'h':7,  'dmap':9, 'dx':0, 'dy':6}   #right1
+          - {'x':31,'y':20, 'h':5, 'dmap':9, 'dx':0, 'dy':22}  #right2
+      spawns:
+          - {'x':0, 'y':0, 'id': 0}
+
+
+
+
+
+#    - bank: 0
+#      id: 6
+#      chrbanks: [0, 2, 4, 5, 6, 7]
+#      bgpal: [
+#        0x0f, 0x12, 0x16, 0x30,
+#        0x0f, 0x37, 0x1a, 0x2a,
+#        0x0f, 0x37, 0x07, 0x17,
+#        0x0f, 0x00, 0x10, 0x30,
+#      ]
+#      sprpal: [
+#        0x0f, 0x17, 0x26, 0x12,
+#        0x0f, 0x0f, 0x12, 0x30,
+#        0x0f, 0x37, 0x07, 0x17,
+#        0x0f, 0x00, 0x10, 0x30,
+#      ]
+#      mapping:
+#          " ": 0x01  # Ground
+#          "t": 0x50  # Green tree
+#          "T": 0x90  # Brown tree
+#          "m": 0x51  # Green mountain
+#          "M": 0x91  # Brown mountain
+#      data:
+#        - "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMM               MMMMMMMM"
+#        - "MMMMMMMMMMMMMMMM  MMMMMMMMMMMMMM"
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#        - "                                "
+#      exits:
+#          - {'x':0x30, 'y':14, 'dmap': 0, 'dpos': 0xa3}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+#      spawns:
+#          - {'x':0, 'y':0, 'id': 0}
 
 
