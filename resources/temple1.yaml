@@ -55,6 +55,8 @@ maps:
       mapping:
           "o": 0x01  # Black floor
           " ": 0x48  # Temple tile
+          ".": 0x4a  # Temple sand
+          "/": 0x4e  # Temple halfttile ./
           "1": 0x58  # Temple wall TL
           "2": 0x59  # Temple wall T
           "3": 0x5a  # Temple wall TR
@@ -83,14 +85,14 @@ maps:
         - "4                              6"
         - "4                              6"
         - "4                              6"
-        - "4                              6"
-        - "4                              6"
-        - "4                              6"
-        - "4                              6"
-        - "4                              6"
-        - "4                              6"
-        - "4                              6"
-        - "78888888888888888888888888888889"
+        - "4                             /6"
+        - "4                            /o6"
+        - "4                           /oo6"
+        - "4                          /ooo6"
+        - "4   ..                    /oooo6"
+        - "4  ....                  /ooooo6"
+        - "4 ......                /oooooo6"
+        - "7888oo88888888888888888888888889"
       exits:
           - {'x':0,'w':0,  'y':0, 'dmap': 0, 'dx':0, 'dy':0}
       spawns:

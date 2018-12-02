@@ -215,16 +215,16 @@ void player_input(void) {
         sword_timer = sizeof(sword_frames) - 1;
     } else if (player_pad & PAD_LEFT) {
         entity_facing[0] = 0;
-        entity_vx[0] = -0x200;
+        entity_vx[0] = -0x180;
     } else if (player_pad & PAD_RIGHT) { 
         entity_facing[0] = 1;
-        entity_vx[0] = 0x200;
+        entity_vx[0] = 0x180;
     } else if (player_pad & PAD_UP) {
         entity_facing[0] = 2;
-        entity_vy[0] = -0x200;
+        entity_vy[0] = -0x180;
     } else if (player_pad & PAD_DOWN) { 
         entity_facing[0] = 3;
-        entity_vy[0] = 0x200;
+        entity_vy[0] = 0x180;
     }
 }    
 
@@ -276,7 +276,7 @@ void player_display(void) {
     screenx = entity_posx[0] - scrollx;
     screeny = entity_posy[0] - scrolly;
 
-    tmp = ((uint8_t)entity_posx[0] + (uint8_t)entity_posy[0]) & 1;
+    tmp = (((uint8_t)entity_posx[0] + (uint8_t)entity_posy[0]) & 4) >>2;
     tmp += entity_facing[0]*2;
     if (entity_state[0] == Stun && entity_timer[0] & 1)
         return;
