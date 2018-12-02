@@ -45,3 +45,28 @@ tiles:
           - "                "
 
 
+    - offset: 0x10
+      origin: [0, 0]
+      width: 2
+      height: 2
+      colormap: [0x00000000, 0xff5e3000, 0xffffc6c6, 0xff1435de]
+      filename: 'gfx/player.png'
+    - offset: 0x14
+      origin: [16, 0]
+      width: 2
+      height: 2
+      colormap: [0x00000000, 0xff5e3000, 0xffffc6c6, 0xff1435de]
+      filename: 'gfx/player.png'
+    - offset: 0x18
+      origin: [32, 0]
+      width: 2
+      height: 2
+      colormap: [0x00000000, 0xff5e3000, 0xffffc6c6, 0xff1435de]
+      filename: 'gfx/player.png'
+    - offset: 0x1c
+      origin: [48, 0]
+      width: 2
+      height: 2
+      colormap: [0x00000000, 0xff5e3000, 0xffffc6c6, 0xff1435de]
+      filename: 'gfx/player.png'
+

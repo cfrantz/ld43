@@ -41,16 +41,20 @@ void main(void)
 
     ppu_on_all();
     set_split(24*8);
+    player_init();
 
     for(framenum=0;;++framenum) {
         ppu_waitnmi();
         oam_clear();
+        spridx = 0;
         scroll1(0, 240+24*8);
 
-        spridx = 0;
         player_pad_changed = pad_trigger(0);
         player_pad = pad_state(0);
         player_input();
+        entity_move();
+        player_display();
+
 
     }
 }

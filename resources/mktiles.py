@@ -3,11 +3,40 @@
 import argparse
 import sys
 import yaml
+from PIL import Image
 
 class TileBuilder(object):
 
     def __init__(self):
         self.tiles = {}
+
+    def ConvertImage(self, data):
+        origin = data.get('origin', (0, 0))
+        width = int(data['width']) * 8
+        height = int(data['height']) * 8
+        colormap = data.get('colormap', [])
+        img = Image.open(data['filename']).crop(
+                box=(origin[0], origin[1], origin[0]+width, origin[1]+height))
+
+        colors = set()
+        for y in range(height):
+            for x in range(width):
+                v = img.getpixel((x, y))
+                v = (v[0]<<16) | (v[1] << 8) | (v[2]) | (v[3] << 24)
+                colors.add('0x%08x' % v)
+
+        text = []
+        for y in range(height):
+            row = []
+            for x in range(width):
+                v = img.getpixel((x, y))
+                v = (v[0]<<16) | (v[1] << 8) | (v[2]) | (v[3] << 24)
+                try:
+                    row.append(str(colormap.index(v)))
+                except:
+                    raise ValueError('Color not found in colormap', colors)
+            text.append(''.join(row))
+        data['data'] = text
 
     def ParseOne(self, data):
         offset = int(data['offset'])
@@ -24,6 +53,9 @@ class TileBuilder(object):
         for i in range(width*height):
             if offset+i in self.tiles:
                 raise ValueError('Tile already defined', offset+i)
+
+        if 'filename' in data:
+            self.ConvertImage(data)
 
         plane0 = [0]*32
         plane1 = [0]*32
