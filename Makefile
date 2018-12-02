@@ -16,9 +16,13 @@ $(SUBDIRS):
 	cc65 -Oi $< --add-source
 	ca65 $*.s
 
+# Note: have to explicitly link the extra banks because their symbols are
+# unreferenced.
+
 ld43.nes: $(OBJS) $(LIBS)
 	ld65 -C $(MAPPER)/nes.cfg -vm --mapfile ld43.map -o $@ \
 		levels/level1.o \
+		levels/temple1.o \
 		$(OBJS) \
 		$(LIBS) \
 		$(NESLIB)

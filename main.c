@@ -15,8 +15,11 @@ uint8_t spridx;
 
 const char kHex[] = "0123456789ABCDEF";
 
-const char kHud0[] =    "+------------------------------+";
-const char kHud1[] =    "|                              |";
+const char kHud0[] =    "\2\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\4";
+const char kHud1[] =    "\7                         B  A \7";
+const char kHud2[] =    "\7                              \7";
+const char kHud3[] =    "\7                              \7";
+const char kHud4[] =    "\3\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\6\5";
 
 void dobrk(void) {
     asm("brk");
@@ -30,12 +33,12 @@ void main(void)
     ppu_off();
     oam_size(1);
 
-    vram_puts(0, 32*2+25, kHud0);
-    vram_puts(0, 32*2+26, kHud1);
-    vram_puts(0, 32*2+27, kHud1);
-    vram_puts(0, 32*2+28, kHud1);
-    vram_puts(0, 32*2+29, kHud0);
-    vram_puts(5, 32*2+27, "Health & Stuff");
+    vram_puts(0, 32*2+24, kHud0);
+    vram_puts(0, 32*2+25, kHud1);
+    vram_puts(0, 32*2+26, kHud2);
+    vram_puts(0, 32*2+27, kHud3);
+    vram_puts(0, 32*2+28, kHud4);
+    vram_puts(5, 32*2+26, "Health & Stuff");
 
     entity_load_screen(0);
 

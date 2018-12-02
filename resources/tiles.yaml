@@ -1,4 +1,51 @@
 tiles:
+    - offset: 0x02
+      width: 2
+      height: 2
+      data:
+          - "                "
+          - "                "
+          - "                "
+          - "    11111111    "
+          - "    11111111    "
+          - "  111111111111  "
+          - "  1111    1111  "
+          - "  1111    1111  "
+          - "  1111    1111  "
+          - "  1111    1111  "
+          - "  1111    1111  "
+          - "  111111111111  "
+          - "    11111111    "
+          - "    11111111    "
+          - "                "
+          - "                "
+
+    - offset: 0x06
+      width: 1
+      height: 1
+      data:
+          - "        "
+          - "        "
+          - "        "
+          - "11111111"
+          - "11111111"
+          - "11111111"
+          - "        "
+          - "        "
+    - offset: 0x07
+      width: 1
+      height: 1
+      data:
+          - "  1111  "
+          - "  1111  "
+          - "  1111  "
+          - "  1111  "
+          - "  1111  "
+          - "  1111  "
+          - "  1111  "
+          - "  1111  "
+
+
     - offset: 0x80
       width: 1
       height: 1
@@ -171,29 +218,104 @@ tiles:
       colormap: [0xff000000, 0xff666666, 0xffadadad, 0xffffffff]
       filename: 'gfx/gray.png'
 
-
-
-
-
-    - offset: 0xfc
+    - offset: 0xc0
+      origin: [0, 0]
       width: 2
       height: 2
-      data:
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
-          - "                "
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xc4
+      origin: [16, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xc8
+      origin: [32, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xcc
+      origin: [48, 0]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+
+    - offset: 0xd0
+      origin: [0, 16]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xd4
+      origin: [16, 16]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xd8
+      origin: [32, 16]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xdc
+      origin: [48, 16]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+
+    - offset: 0xe0
+      origin: [0, 32]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xe4
+      origin: [16, 32]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xe8
+      origin: [32, 32]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xec
+      origin: [48, 32]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+
+    - offset: 0xf0
+      origin: [0, 48]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xf4
+      origin: [16, 48]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xf8
+      origin: [32, 48]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
+    - offset: 0xfc
+      origin: [48, 48]
+      width: 2
+      height: 2
+      colormap: [0xff000000, 0xff002a88, 0xff155fd9, 0xffffffff]
+      filename: 'gfx/temple.png'
 
 

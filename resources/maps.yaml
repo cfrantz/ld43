@@ -154,11 +154,7 @@ maps:
         - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
       exits:
           - {'x':31, 'y':0x74, 'dmap': 0, 'dpos': 0xa0}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
-          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':7, 'w':2, 'y':23, 'dmap': 16, 'dx':16, 'dy':16}
       spawns:
           - {'x':0, 'y':0, 'id': 0}
 

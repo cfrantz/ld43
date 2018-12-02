@@ -148,6 +148,7 @@ uint8_t tmp;
 uint8_t index;
 
 const uint8_t sword_frames[] = {0, 12, 12, 12, 10, 8, 6, 4, 2};
+uint8_t player_has_sword;
 uint16_t swordx, swordy;
 uint8_t sword_timer;
 uint8_t sword_damage;
@@ -210,7 +211,7 @@ void player_input(void) {
     entity_vx[0] = 0;
     entity_vy[0] = 0;
     if (sword_timer) {
-    } else if (player_pad_changed & PAD_A) {
+    } else if (player_pad_changed & PAD_A && player_has_sword) {
         sword_timer = sizeof(sword_frames) - 1;
     } else if (player_pad & PAD_LEFT) {
         entity_facing[0] = 0;
@@ -281,6 +282,9 @@ void player_display(void) {
         return;
     spridx = oam_meta_spr(screenx, screeny, spridx, ids[tmp]);
     player_sword();
+    if (player_has_sword) {
+        spridx = oam_meta_spr(256-23, 241-32, spridx, sword_ids[2]);
+    }
 }   
 
 void entity_display(void) {
@@ -351,6 +355,7 @@ void player_init(uint8_t x, uint8_t y) {
     entity_posy[0] = y*16;
     entity_facing[0] = 3;
     sword_damage = 3;
+    player_has_sword = 1;
 }
 
 void __fastcall__ entity_set_velocity(int16_t v) {

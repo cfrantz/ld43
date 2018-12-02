@@ -3,7 +3,7 @@ include ../toolchain.mk
 .PHONY: clean 
 .PRECIOUS: *.o
 
-SRCS=screen.c level0.c level1.c
+SRCS=screen.c level0.c level1.c temple1.c
 OBJS=$(SRCS:.c=.o) util.o
 ASMS=$(SRCS:.c=.s)
 
