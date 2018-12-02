@@ -123,7 +123,7 @@ enum EntityState {
 
 
 const uint8_t bbx0[] = { 3,  2,  2,  2,  0,  0,  0,  };
-const uint8_t bby0[] = { 1,  2,  2,  2,  0,  0,  0,  };
+const uint8_t bby0[] = { 4,  2,  2,  2,  0,  0,  0,  };
 const uint8_t bbx1[] = { 12, 14, 14, 14, 0,  0,  0,  };
 const uint8_t bby1[] = { 14, 14, 14, 14, 0,  0,  0,  };
 const uint8_t health[]={ 8,  4,  9,  16,  0,  0,  0,  };
@@ -367,6 +367,25 @@ void __fastcall__ entity_set_velocity(int16_t v) {
     }
 }
 
+void entity_damage(void) {
+    if (entity_state[index] != Dead) {
+        entity_state[index] = Stun;
+        entity_timer[index] = 30;
+        if (entity_dmgtm[index] == 0) {
+            entity_set_velocity(0);
+            entity_dmgtm[index] = sword_timer;
+            entity_hp[index] -= sword_damage;
+            if (entity_hp[index] <= 0)
+                entity_state[index] = Dead;
+        }
+    }
+}
+
+void player_damage(void) {
+    entity_state[0] = Stun;
+    entity_timer[0] = 30;
+}
+
 uint8_t entity_collide(void) {
     static uint8_t id, x0, y0, x1, y1;
     if (!on_screen)
@@ -383,17 +402,6 @@ uint8_t entity_collide(void) {
         ssx+sbx1[entity_facing[0]] >= x0 &&
         ssy+sby0[entity_facing[0]] <= y1 &&
         ssy+sby1[entity_facing[0]] >= y0) {
-        if (entity_state[index] != Dead) {
-            entity_state[index] = Stun;
-            entity_timer[index] = 30;
-            if (entity_dmgtm[index] == 0) {
-                entity_set_velocity(0);
-                entity_dmgtm[index] = sword_timer;
-                entity_hp[index] -= sword_damage;
-                if (entity_hp[index] <= 0)
-                    entity_state[index] = Dead;
-            }
-        }
         return 2;
     }
     if (entity_state[0] == Stun || entity_state[index] == Stun) {
@@ -403,15 +411,13 @@ uint8_t entity_collide(void) {
         screenx+bbx1[0] >= x0 &&
         screeny+bby0[0] <= y1 &&
         screeny+bby1[0] >= y0) {
-        entity_state[0] = Stun;
-        entity_timer[0] = 30;
         return 1;
     }
     return 0;
 }
 
 void entity_ai(void) {
-    static uint8_t timer, tick;
+    static uint8_t timer, tick, coll;
     timer = entity_timer[index];
     tick = timer / 4;
     if (timer) {
@@ -425,6 +431,9 @@ void entity_ai(void) {
     if (entity_dmgtm[index]) {
         entity_dmgtm[index] -= 1;
     }
+
+    if (index)
+        coll = entity_collide();
 
     switch(entity_id[index]) {
     case Player:
@@ -440,7 +449,11 @@ void entity_ai(void) {
             entity_facing[index] = lfsr_val[index] >> 6;
             entity_set_velocity(0x200);
         }
-        entity_collide();
+        if (coll == 1) {
+            player_damage();
+        } else if (coll == 2) {
+            entity_damage();
+        }
         entity_sprite[index] = SPR_SPIDER + (tick & 1);
         break;
     case Grump:
@@ -450,7 +463,11 @@ void entity_ai(void) {
             entity_facing[index] = lfsr_val[index] & 3;
             entity_set_velocity(0xc0);
         }
-        entity_collide();
+        if (coll == 1) {
+            player_damage();
+        } else if (coll == 2) {
+            entity_damage();
+        }
         entity_sprite[index] = SPR_GRUMP + (tick & 1);
         break;
     case Skull:
@@ -462,7 +479,11 @@ void entity_ai(void) {
             entity_vx[index] = (tmp&1) ? 0x100 : -0x100;
             entity_vy[index] = (tmp&2) ? 0x100 : -0x100;
         }
-        entity_collide();
+        if (coll == 1) {
+            player_damage();
+        } else if (coll == 2) {
+            entity_damage();
+        }
         entity_sprite[index] = SPR_SKULL + (tick & 1);
         break;
     }
