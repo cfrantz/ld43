@@ -5,6 +5,7 @@
 #include "util/nesutil.h"
 #include "levels/screen.h"
 #include "game/entity.h"
+#include "game/lfsr.h"
 
 uint8_t framenum;
 uint8_t player_pad;
@@ -37,24 +38,23 @@ void main(void)
     vram_puts(5, 32*2+27, "Health & Stuff");
 
     set_mmc3_low_bank(0);
-    screen_load(0);
+    entity_load_screen(0);
 
     ppu_on_all();
     set_split(24*8);
-    player_init();
+    player_init(6, 20);
+    lfsr_val[0] = 0x55;
 
     for(framenum=0;;++framenum) {
         ppu_waitnmi();
+        lfsr_clock();
         oam_clear();
         spridx = 0;
         scroll1(0, 240+24*8);
 
         player_pad_changed = pad_trigger(0);
         player_pad = pad_state(0);
-        player_input();
-        entity_move();
-        player_display();
-
-
+        entity_all();
+        player_check_exit();
     }
 }

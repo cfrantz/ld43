@@ -5,7 +5,6 @@ import yaml
 
 class LevelBuilder(object):
     def __init__(self):
-        self.mapping = {}
         self.maps = {}
         self.banks = set()
         self.objset = []
@@ -17,6 +16,13 @@ class LevelBuilder(object):
         mapid = (bank<<3) | id
         if mapid in self.maps:
             raise KeyError('Map already exists', mapid)
+
+        if 'mapping' not in data:
+            raise ValueError('Cannot have a map without a mapping')
+
+        mapping = {}
+        for k, v in data['mapping'].items():
+            mapping[k] = int(v)
 
         m = {}
         self.maps[mapid] = m
@@ -42,18 +48,18 @@ class LevelBuilder(object):
             m['exits'][i*4+3] = int(val['dpos'])
 
         for i, val in enumerate(data.get('spawns', [])):
-            m['spawns'][i*4+0] = int(val['x'])
-            m['spawns'][i*4+1] = int(val['y'])
-            m['spawns'][i*4+2] = int(val['id'])
+            m['spawns'][i*3+0] = int(val['x'])
+            m['spawns'][i*3+1] = int(val['y'])
+            m['spawns'][i*3+2] = int(val['id'])
 
         for i, val in enumerate(data.get('items', [])):
-            m['items'][i*4+0] = int(val['x'])
-            m['items'][i*4+1] = int(val['y'])
-            m['items'][i*4+2] = int(val['id'])
+            m['items'][i*3+0] = int(val['x'])
+            m['items'][i*3+1] = int(val['y'])
+            m['items'][i*3+2] = int(val['id'])
 
         if len(data['data']) != 27:
             raise ValueError('Map data expected to be exactly 27 rows',
-                             bank, id)
+                             bank, id, len(data['data']))
 
         m[0] = []
         m[1] = []
@@ -66,9 +72,9 @@ class LevelBuilder(object):
             screen = 2 * (y//15)
             objs = []
             for ch in row:
-                if ch not in self.mapping:
+                if ch not in mapping:
                     raise ValueError('Char not in mapping', ch, bank, id)
-                objs.append(self.mapping[ch])
+                objs.append(mapping[ch])
 
             m[screen+0].append(objs[0:16])
             m[screen+1].append(objs[16:32])
@@ -124,9 +130,6 @@ class LevelBuilder(object):
             self.PrintMaps(b)
 
     def Parse(self, data):
-        for k, v in data['mapping'].items():
-            self.mapping[k] = int(v)
-
         self.objset = data['objset']
         for m in data['maps']:
             self.ParseMap(m)

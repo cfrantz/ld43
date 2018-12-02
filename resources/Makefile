@@ -3,11 +3,9 @@ include ../toolchain.mk
 .PHONY: clean 
 .PRECIOUS: *.o
 
-SRCS=
-OBJS=$(SRCS:.c=.o)
-ASMS=$(SRCS:.c=.s)
+OUTS=level0.c bgtiles.h sprites.h
 
-all: level0.c bgtiles.h sprites.h
+all: $(OUTS)
 
 level0.c: maps.yaml
 	python3 mklevels.py $< >$@
@@ -24,4 +22,4 @@ sprites.h: sprites.yaml
 	$(AS) $*.s
 
 clean:
-	@rm -fv $(OBJS) $(ASMS) *.a
+	@rm -fv $(OUTS)

@@ -4,11 +4,14 @@ include ../toolchain.mk
 .PRECIOUS: *.o
 
 SRCS=entity.c
-OBJS=$(SRCS:.c=.o)
+OBJS=$(SRCS:.c=.o) lfsr.o
 ASMS=$(SRCS:.c=.s)
 
 libgame.a: $(OBJS)
 	$(AR) r $@ $(OBJS)
+
+%.o: %.S
+	$(AS) $<
 
 %.o: %.c
 	$(CC) -I.. -Oi $< --add-source

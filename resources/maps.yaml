@@ -18,13 +18,6 @@ objset:
 
     - [0x90, 0x91, 0x92, 0x93]  # 0x10 Tree
     - [0x94, 0x95, 0x96, 0x97]  # 0x11 Mountain
-mapping:
-    "o": 0x01  # Cave
-    " ": 0x42  # Ground
-    "t": 0x50  # Green tree
-    "T": 0x90  # Brown tree
-    "m": 0x51  # Green mountain
-    "M": 0x91  # Brown mountain
 
 maps:
     - bank: 0
@@ -38,10 +31,17 @@ maps:
       ]
       sprpal: [
         0x0f, 0x17, 0x26, 0x12,
-        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x0f, 0x12, 0x30,
         0x0f, 0x37, 0x07, 0x17,
         0x0f, 0x00, 0x10, 0x30,
       ]
+      mapping:
+          "o": 0x01  # Cave
+          " ": 0x42  # Ground
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
       data:
         - "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
         - "M               TT             M"
@@ -71,7 +71,73 @@ maps:
         - "mmmmmmmmmmmmmmmmmmmm           m"
         - "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
       exits:
+          - {'x':0xFF, 'y':0xFF, 'dmap': 0, 'dpos': 0xa3}
+          - {'x':2, 'y':17, 'dmap': 1, 'dpos': 0x68}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+          - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
+      spawns:
+          - {'x':3, 'y':19, 'id': 1}
+          - {'x':6, 'y':19, 'id': 1}
+          - {'x':24, 'y':3, 'id': 2}
+          - {'x':26, 'y':5, 'id': 2}
+          - {'x':4, 'y':4, 'id': 3}
+          - {'x':4, 'y':8, 'id': 3}
+
+    - bank: 0
+      id: 1
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x37, 0x1a, 0x2a,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          " ": 0x01  # Ground
+          "t": 0x50  # Green tree
+          "T": 0x90  # Brown tree
+          "m": 0x51  # Green mountain
+          "M": 0x91  # Brown mountain
+      data:
+        - "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMM               MMMMMMMM"
+        - "MMMMMMMMMMMMMMMM  MMMMMMMMMMMMMM"
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+        - "                                "
+      exits:
+          - {'x':0x30, 'y':14, 'dmap': 0, 'dpos': 0xa3}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}
           - {'x':0, 'y':0, 'dmap': 0, 'dpos': 0x00}

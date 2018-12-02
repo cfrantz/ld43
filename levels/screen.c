@@ -4,6 +4,13 @@
 
 #pragma bss-name(push, "WRAM")
 uint8_t screen[1024];
+uint8_t screen_exit_x0[8];
+uint8_t screen_exit_y0[8];
+uint8_t screen_exit_x1[8];
+uint8_t screen_exit_y1[8];
+uint8_t screen_exit_dmap[8];
+uint8_t screen_exit_dx[8];
+uint8_t screen_exit_dy[8];
 #pragma bss-name(pop)
 
 const uint16_t ppu_dests[] = { 0x2000, 0x2400, 0x2800, 0x2c00 };
@@ -12,7 +19,7 @@ uint8_t * const screens[] = {
 };
 
 void screen_copy_to_ram(uint8_t n) {
-    static uint8_t x, y;
+    static uint8_t x, y, i;
     static uint8_t *dst;
     static const uint8_t *src;
 
@@ -28,6 +35,17 @@ void screen_copy_to_ram(uint8_t n) {
         for(x=0; x<16; ++x, ++dst, ++src) {
             *dst = *src;
         }
+    }
+    for(i=0; i<8; i++) {
+        x = levels[n].exits[i*4+0];
+        y = levels[n].exits[i*4+1];
+        screen_exit_x0[i] = x & 0x1f;
+        screen_exit_y0[i] = y & 0x1f;
+        screen_exit_x1[i] = (x & 0x1f) + (x >> 5) + 1;
+        screen_exit_y1[i] = (y & 0x1f) + (y >> 5) + 1;
+        screen_exit_dmap[i] = levels[n].exits[i*4+2];
+        screen_exit_dx[i] = (levels[n].exits[i*4+3] & 0xf) << 1;
+        screen_exit_dy[i] = (levels[n].exits[i*4+3] & 0xf0) >> 3;
     }
 }
 
@@ -76,16 +94,7 @@ void screen_load(uint8_t id) {
     }
 }
 
-uint8_t screen_get(uint8_t x, uint8_t y) {
-    static uint8_t *p;
-    p = &screen[0];
-    if (y >= 15) {
-        p += 0x0200;
-        y -= 15;
-    }
-    if (x >= 16) {
-        p += 0x0100;
-        x &= 15;
-    }
-    return p[(uint8_t)(y*16+x)];
+uint8_t* screen_get_spawns(uint8_t id) {
+    id &= 7;
+    return levels[id].spawn;
 }

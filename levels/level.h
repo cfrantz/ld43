@@ -16,6 +16,4 @@ struct LevelData {
 extern const uint8_t objset[256];
 extern const struct LevelData levels[7];
 
-extern uint8_t __fastcall__ get_screen(uint8_t x, uint8_t y);
-
 #endif // LD43_LEVELS_LEVEL_H
