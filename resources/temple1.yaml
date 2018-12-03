@@ -23,7 +23,7 @@ objset:
     - [0x00, 0x00, 0x00, 0x00]  # 0x13 Nothing
     - [0xa0, 0xa1, 0xa2, 0xa3]  # 0x14 Pillar 1
     - [0xa4, 0xa5, 0xa6, 0xa7]  # 0x15 Pillar 2
-    - [0xa8, 0xa9, 0xaa, 0xab]  # 0x16 Block
+    - [0xf4, 0xf5, 0xf6, 0xf7]  # 0x16 Block
     - [0xac, 0xad, 0xae, 0xaf]  # 0x17 Grave
 
     - [0xc0, 0xc1, 0xc2, 0xc3]  # 0x18 Temple wall TL
@@ -56,6 +56,7 @@ maps:
           "o": 0x01  # Black floor
           " ": 0x48  # Temple tile
           ".": 0x4a  # Temple sand
+          ":": 0x49  # Temple rocks
           "/": 0x4e  # Temple halfttile ./
           "1": 0x58  # Temple wall TL
           "2": 0x59  # Temple wall T
@@ -65,6 +66,142 @@ maps:
           "7": 0x5d  # Temple wall BL
           "8": 0x5e  # Temple wall B 
           "9": 0x5f  # Temple wall BR
+          "B": 0x56  # Temple block
+      data:
+        - "12222222222222222222222222222223"
+        - "4                              6"
+        - "4      BBBBBBBBBBBBBB          6"
+        - "4      B            B          6"
+        - "4      B  BBBBBBB   B          6"
+        - "4      B  B     B   B::::::::::6"
+        - "4      B  B     B   B::::::::::6"
+        - "4      BB   BB  B   B::::::::::o"
+        - "4      B     B  B   B::::::::::o"
+        - "4      B     B  B   B::::::::::o"
+        - "4      B     B  B   B::::::::::6"
+        - "4      BBBBBBB  B   BBBBBBBBBBB6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                             /6"
+        - "4                            /o6"
+        - "4                           /oo6"
+        - "4                          /ooo6"
+        - "4   ..                    /oooo6"
+        - "4  ....                  /ooooo6"
+        - "4 ......                /oooooo6"
+        - "7888oo88888888888888888888888889"
+      exits:
+          - {'x':4, 'w':2, 'y':26, 'dmap': 1,    'dx':8, 'dy':25}
+          - {'x':31,'y':7, 'h':3,  'dmap': 0x11, 'dx':0, 'dy':8}
+      items:
+          - {'x':10, 'y':10, 'id':9}
+      spawns:
+          - {'x':10, 'y':10, 'id': 3}
+          - {'x':25, 'y':10, 'id': 1}
+          - {'x':30, 'y':25, 'id': 1}
+
+    - bank: 2
+      id: 1
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x1a, 0x2a, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Black floor
+          " ": 0x48  # Temple tile
+          ".": 0x4a  # Temple sand
+          ":": 0x49  # Temple rocks
+          "/": 0x4e  # Temple halfttile ./
+          "1": 0x58  # Temple wall TL
+          "2": 0x59  # Temple wall T
+          "3": 0x5a  # Temple wall TR
+          "4": 0x5b  # Temple wall L
+          "6": 0x5c  # Temple wall R 
+          "7": 0x5d  # Temple wall BL
+          "8": 0x5e  # Temple wall B 
+          "9": 0x5f  # Temple wall BR
+          "B": 0x56  # Temple block
+      data:
+        - "12222222222222222222222222222223"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4BBBBBBBBBBBBBBBBBBBBBBB   BBBB6"
+        - "o                              6"
+        - "o                              6"
+        - "o                              6"
+        - "4BBBBBBBBBBBBBBBBBBBBBBB   BBBB6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "78888888888888888888888888888889"
+      exits:
+          - {'x':0,'y':7, 'h':3,  'dmap': 0x10, 'dx':30, 'dy':8}
+      items:
+          - {'x':28, 'y':23, 'id':10}
+      spawns:
+          - {'x':10, 'y':9, 'id': 3}
+          - {'x':10, 'y':2, 'id': 3}
+          - {'x':25, 'y':10, 'id': 2}
+          - {'x':30, 'y':25, 'id': 2}
+    - bank: 2
+      id: 6
+      chrbanks: [0, 2, 4, 5, 6, 7]
+      bgpal: [
+        0x0f, 0x12, 0x16, 0x30,
+        0x0f, 0x1a, 0x2a, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      sprpal: [
+        0x0f, 0x17, 0x26, 0x12,
+        0x0f, 0x0f, 0x12, 0x30,
+        0x0f, 0x37, 0x07, 0x17,
+        0x0f, 0x00, 0x10, 0x30,
+      ]
+      mapping:
+          "o": 0x01  # Black floor
+          " ": 0x48  # Temple tile
+          ".": 0x4a  # Temple sand
+          ":": 0x49  # Temple rocks
+          "/": 0x4e  # Temple halfttile ./
+          "1": 0x58  # Temple wall TL
+          "2": 0x59  # Temple wall T
+          "3": 0x5a  # Temple wall TR
+          "4": 0x5b  # Temple wall L
+          "6": 0x5c  # Temple wall R 
+          "7": 0x5d  # Temple wall BL
+          "8": 0x5e  # Temple wall B 
+          "9": 0x5f  # Temple wall BR
+          "B": 0x56  # Temple block
       data:
         - "12222222222222222222222222222223"
         - "4                              6"
@@ -85,16 +222,15 @@ maps:
         - "4                              6"
         - "4                              6"
         - "4                              6"
-        - "4                             /6"
-        - "4                            /o6"
-        - "4                           /oo6"
-        - "4                          /ooo6"
-        - "4   ..                    /oooo6"
-        - "4  ....                  /ooooo6"
-        - "4 ......                /oooooo6"
-        - "7888oo88888888888888888888888889"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "4                              6"
+        - "78888888888888888888888888888889"
       exits:
           - {'x':4,'w':2,  'y':26, 'dmap': 1, 'dx':8, 'dy':25}
       items:
           - {'x':10, 'y':10, 'id':9}
-

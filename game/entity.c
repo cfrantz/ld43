@@ -343,11 +343,6 @@ void entity_display(void) {
     on_screen = 1;
     if (entity_state[index] == Stun && entity_timer[index] & 1)
         return;
-    if (index == 15) {
-        writereg8(0x401a, sx);
-        writereg8(0x401a, sy);
-        writereg8(0x401a, entity_sprite[index]);
-    }
     spridx = oam_meta_spr(sx, sy, spridx, ids[entity_sprite[index]]);
 }
 
