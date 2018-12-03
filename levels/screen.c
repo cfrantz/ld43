@@ -98,3 +98,8 @@ uint8_t* screen_get_spawns(uint8_t id) {
     id &= 7;
     return levels0[id].spawn;
 }
+
+uint8_t* screen_get_items(uint8_t id) {
+    id &= 7;
+    return levels0[id].items;
+}

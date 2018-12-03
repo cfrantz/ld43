@@ -95,6 +95,31 @@ tiles:
       colormap: [0x0, 0xff000000, 0xff0000d9, 0xffffffff]
       filename: 'gfx/items1.png'
 
+    - offset: 0x30
+      origin: [0, 0]
+      width: 2
+      height: 2
+      colormap: [0x0, 0xff000000, 0xff0000d9, 0xffffffff]
+      filename: 'gfx/chips.png'
+    - offset: 0x34
+      origin: [16, 0]
+      width: 2
+      height: 2
+      colormap: [0x0, 0xff000000, 0xff0000d9, 0xffffffff]
+      filename: 'gfx/chips.png'
+    - offset: 0x38
+      origin: [32, 0]
+      width: 2
+      height: 2
+      colormap: [0x0, 0xff000000, 0xff0000d9, 0xffffffff]
+      filename: 'gfx/chips.png'
+    - offset: 0x3c
+      origin: [48, 0]
+      width: 2
+      height: 2
+      colormap: [0x0, 0xff000000, 0xff0000d9, 0xffffffff]
+      filename: 'gfx/chips.png'
+
 
 
     - offset: 0x7c

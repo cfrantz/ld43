@@ -6,6 +6,7 @@
 extern void screen_load(uint8_t id);
 extern uint8_t __fastcall__ get_screen(uint8_t x, uint8_t y);
 extern uint8_t* __fastcall__ screen_get_spawns(uint8_t id);
+extern uint8_t* __fastcall__ screen_get_items(uint8_t id);
 
 extern uint8_t screen_exit_x0[8];
 extern uint8_t screen_exit_y0[8];

@@ -63,6 +63,30 @@ const uint8_t meta_sprites[] = {
     0x08, 0x00, 0x7e, 0x01, 0x80,
 
 };
+const uint8_t item_meta_sprites[] = {
+    // sword left
+    0x00, 0x00, 0x24, 0x01,
+    0x08, 0x00, 0x26, 0x01, 0x80,
+    // sword right
+    0x00, 0x00, 0x26, 0x41,
+    0x08, 0x00, 0x24, 0x41, 0x80,
+    // sword up
+    0x00, 0x00, 0x20, 0x01, 0x80,
+    // sword down
+    0x00, 0x00, 0x20, 0x81, 0x80,
+    // 6502
+    0x00, 0x00, 0x30, 0x01,
+    0x08, 0x00, 0x32, 0x01, 0x80,
+    // PPU
+    0x00, 0x00, 0x34, 0x01,
+    0x08, 0x00, 0x36, 0x01, 0x80,
+    // RAM
+    0x00, 0x00, 0x38, 0x01,
+    0x08, 0x00, 0x3a, 0x01, 0x80,
+    // 7404
+    0x00, 0x00, 0x3c, 0x01,
+    0x08, 0x00, 0x3e, 0x01, 0x80,
+};
 
 const uint8_t * const ids[] = {
     &meta_sprites[0*9],
@@ -88,25 +112,19 @@ const uint8_t * const ids[] = {
     &meta_sprites[15*9],
     &meta_sprites[16*9],
     &meta_sprites[17*9],
-};
-
-const uint8_t sword_meta_sprites[] = {
-    // sword left
-    0x00, 0x00, 0x24, 0x01,
-    0x08, 0x00, 0x26, 0x01, 0x80,
-    // sword right
-    0x00, 0x00, 0x26, 0x41,
-    0x08, 0x00, 0x24, 0x41, 0x80,
-    // sword up
-    0x00, 0x00, 0x20, 0x01, 0x80,
-    // sword down
-    0x00, 0x00, 0x20, 0x81, 0x80,
-};
-const uint8_t * const sword_ids[] = {
-    &sword_meta_sprites[0],
-    &sword_meta_sprites[9],
-    &sword_meta_sprites[18],
-    &sword_meta_sprites[23],
+#define SPR_SWORD 18
+    &item_meta_sprites[0],
+    &item_meta_sprites[9],
+    &item_meta_sprites[18],
+    &item_meta_sprites[23],
+#define SPR_6502 22
+    &item_meta_sprites[28],
+#define SPR_PPU 23
+    &item_meta_sprites[28+9],
+#define SPR_RAM 24
+    &item_meta_sprites[28+9+9],
+#define SPR_7404 25
+    &item_meta_sprites[28+9+9+9],
 };
 
 enum EntityID {
@@ -114,21 +132,39 @@ enum EntityID {
     Spider = 1,
     Grump = 2,
     Skull = 3,
+    Sword = 8,
+    CPU = 9,
+    PPU = 10,
+    RAM = 11,
+    Inverter = 12,
 };
+#define ITEM_IDX(x_) (x_&7)
+
 enum EntityState {
     Normal = 0,
     Stun = 1,
     Dead = 2,
 };
 
+const uint8_t item_sprite[] = {
+    SPR_SWORD+2,
+    SPR_6502,
+    SPR_PPU,
+    SPR_RAM,
+    SPR_7404,
+};
 
-const uint8_t bbx0[] = { 3,  2,  2,  2,  0,  0,  0,  };
-const uint8_t bby0[] = { 4,  2,  2,  2,  0,  0,  0,  };
-const uint8_t bbx1[] = { 12, 14, 14, 14, 0,  0,  0,  };
-const uint8_t bby1[] = { 14, 14, 14, 14, 0,  0,  0,  };
+//                    player enemies                     items
+const uint8_t bbx0[] = { 3,  2,  2,  2,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, };
+const uint8_t bby0[] = { 4,  2,  2,  2,  0,  0,  0,  0,  0,  2,  2,  2,  2,  0,  0,  0, };
+const uint8_t bbx1[] = { 12, 14, 14, 14, 0,  0,  0,  0,  5,  14,14, 14, 14,  0,  0,  0, };
+const uint8_t bby1[] = { 14, 14, 14, 14, 0,  0,  0,  0, 12,  12,12, 12, 12,  0,  0,  0, };
+
+
 const uint8_t health[]={ 8,  4,  9,  16,  0,  0,  0,  };
 
-#define NUM_ENTITIES 9
+uint8_t curmap;
+#define NUM_ENTITIES 16
 uint8_t entity_id[NUM_ENTITIES];
 int8_t entity_hp[NUM_ENTITIES];
 uint8_t entity_facing[NUM_ENTITIES];
@@ -147,8 +183,13 @@ uint8_t screenx, screeny;
 uint8_t tmp;
 uint8_t index;
 
+const uint8_t bits[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
+#pragma bss-name(push, "WRAM")
+uint8_t item_taken[256];
+uint8_t player_has_item[8];
+#pragma bss-name(pop)
+
 const uint8_t sword_frames[] = {0, 12, 12, 12, 10, 8, 6, 4, 2};
-uint8_t player_has_sword;
 uint16_t swordx, swordy;
 uint8_t sword_timer;
 uint8_t sword_damage;
@@ -211,7 +252,7 @@ void player_input(void) {
     entity_vx[0] = 0;
     entity_vy[0] = 0;
     if (sword_timer) {
-    } else if (player_pad_changed & PAD_A && player_has_sword) {
+    } else if (player_pad_changed & PAD_A && player_has_item[ITEM_IDX(Sword)]) {
         sword_timer = sizeof(sword_frames) - 1;
     } else if (player_pad & PAD_LEFT) {
         entity_facing[0] = 0;
@@ -252,7 +293,7 @@ void player_sword(void) {
     }
     ssx = swordx-scrollx;
     ssy = swordy-scrolly;
-    spridx = oam_meta_spr(ssx, ssy, spridx, sword_ids[entity_facing[0]]);
+    spridx = oam_meta_spr(ssx, ssy, spridx, ids[SPR_SWORD+entity_facing[0]]);
     sword_timer -= 1;
 }
 
@@ -282,8 +323,14 @@ void player_display(void) {
         return;
     spridx = oam_meta_spr(screenx, screeny, spridx, ids[tmp]);
     player_sword();
-    if (player_has_sword) {
-        spridx = oam_meta_spr(256-23, 241-32, spridx, sword_ids[2]);
+    if (player_has_item[ITEM_IDX(Sword)]) {
+        spridx = oam_meta_spr(256-23, 241-32, spridx, ids[SPR_SWORD+2]);
+    }
+    for(tmp=0; tmp<4; ++tmp) {
+        if (player_has_item[ITEM_IDX(CPU+tmp)]) {
+            spridx = oam_meta_spr(16+tmp*16, 241-32, spridx,
+                    ids[item_sprite[ITEM_IDX(CPU+tmp)]]);
+        }
     }
 }   
 
@@ -296,13 +343,18 @@ void entity_display(void) {
     on_screen = 1;
     if (entity_state[index] == Stun && entity_timer[index] & 1)
         return;
+    if (index == 15) {
+        writereg8(0x401a, sx);
+        writereg8(0x401a, sy);
+        writereg8(0x401a, entity_sprite[index]);
+    }
     spridx = oam_meta_spr(sx, sy, spridx, ids[entity_sprite[index]]);
 }
 
 
 void entity_spawn(uint8_t *spawns) {
     tmp = 0;
-    for(index=1; index<NUM_ENTITIES; ++index,tmp+=3) {
+    for(index=1; index<9; ++index,tmp+=3) {
         entity_posx[index] = spawns[tmp+0] * 16;
         entity_posy[index] = spawns[tmp+1] * 16;
         entity_id[index] = spawns[tmp+2];
@@ -318,9 +370,33 @@ void entity_spawn(uint8_t *spawns) {
     }
 }
 
+void item_spawn(uint8_t *spawns) {
+    static uint8_t j;
+    tmp = j = 0;
+    for(index=15; index>8; --index,tmp+=3,++j) {
+        if (item_taken[curmap] & bits[j])
+            continue;
+        entity_posx[index] = spawns[tmp+0] * 16;
+        entity_posy[index] = spawns[tmp+1] * 16;
+        entity_id[index] = spawns[tmp+2];
+        entity_hp[index] = 0;
+        entity_subpixx[index] = 0;
+        entity_subpixy[index] = 0;
+        entity_vx[index] = 0;
+        entity_vy[index] = 0;
+        entity_timer[index] = 0;
+        entity_dmgtm[index] = 0;
+        entity_sprite[index] = item_sprite[ITEM_IDX(entity_id[index])];
+        entity_state[index] = Normal;
+    }
+}
+
 void entity_load_screen(uint8_t dmap) {
+    curmap = dmap;
     screen_load(dmap);
+    index = 1;
     entity_spawn(screen_get_spawns(dmap));
+    item_spawn(screen_get_items(dmap));
     player_display();
 }
 
@@ -329,7 +405,6 @@ uint8_t player_check_exit(void) {
 
     x = (entity_posx[0] + 8) / 16;
     y = (entity_posy[0] + 8) / 16;
-    //writereg8(0x401a, x);
     for(i=0; i<8; ++i) {
         if (x >= screen_exit_x0[i] &&
             x < screen_exit_x1[i] &&
@@ -355,7 +430,9 @@ void player_init(uint8_t x, uint8_t y) {
     entity_posy[0] = y*16;
     entity_facing[0] = 3;
     sword_damage = 3;
-    player_has_sword = 1;
+    for(tmp=0; tmp<8; tmp++) {
+        player_has_item[0] = 0;
+    }
 }
 
 void __fastcall__ entity_set_velocity(int16_t v) {
@@ -384,6 +461,12 @@ void entity_damage(void) {
 void player_damage(void) {
     entity_state[0] = Stun;
     entity_timer[0] = 30;
+}
+
+void entity_take(void) {
+    player_has_item[ITEM_IDX(entity_id[index])] += 1;
+    item_taken[curmap] |= bits[15-index];
+    entity_id[index] = 0;
 }
 
 uint8_t entity_collide(void) {
@@ -486,6 +569,13 @@ void entity_ai(void) {
         }
         entity_sprite[index] = SPR_SKULL + (tick & 1);
         break;
+    case Sword:
+    case CPU:
+    case PPU:
+    case RAM:
+    case Inverter:
+        if (coll == 1) entity_take();
+        break;
     }
 }
 
@@ -498,6 +588,9 @@ void entity_all(void) {
             player_display();
         }
         entity_ai();
-        entity_move();
+        // Items don't move.
+        if ((entity_id[index] & 8) == 0) {
+            entity_move();
+        }
     }
 }
