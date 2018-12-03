@@ -15,7 +15,11 @@ Watch out for Spiders, Grumps and Skulls.  Grab a sword to defend yourself.
 
 NES Quest draws a lot of inspration from *The Legend of Zelda* and *Gauntlet*.
 
-![Start Screen](resources/screenshots/start.png) ![Temple Screen](resources/screenshots/temple1.png)
+### Start Screen
+![Start Screen](resources/screenshots/start.png)
+
+### Inside a Temple
+![Temple Screen](resources/screenshots/temple1.png)
 
 ## Unfinished Work
 
